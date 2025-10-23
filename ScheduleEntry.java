@@ -13,8 +13,7 @@ public class ScheduleEntry {
             throw new IllegalArgumentException("Start or end time cannot be null.");
         if (!startTime.getDayOfWeek().equals(endTime.getDayOfWeek()))
             throw new IllegalArgumentException("Start and end must be on the same day.");
-        if (startTime.getHour() > endTime.getHour() ||
-           (startTime.getHour() == endTime.getHour() && startTime.getMinute() >= endTime.getMinute()))
+        if (startTime.getHour() > endTime.getHour())
             throw new IllegalArgumentException("Start time must be before end time.");
 
         this.unitName = unitName;
@@ -23,20 +22,15 @@ public class ScheduleEntry {
         this.endTime = endTime;
     }
 
-    // Getters
     public String getUnitName() { return unitName; }
     public String getActivityType() { return activityType; }
     public DayTime getStartTime() { return startTime; }
     public DayTime getEndTime() { return endTime; }
 
-    /** Tính số giờ của buổi học */
     public int getDurationHours() {
-        int start = startTime.getHour();
-        int end = endTime.getHour();
-        return (end - start + 24) % 24; // hỗ trợ wrap qua ngày
+        return (endTime.getHour() - startTime.getHour() + 24) % 24;
     }
 
-    /** Kiểm tra xung đột thời gian */
     public boolean conflictsWith(ScheduleEntry other) {
         if (!this.startTime.getDayOfWeek().equals(other.startTime.getDayOfWeek())) return false;
         return this.startTime.getHour() < other.endTime.getHour() &&
