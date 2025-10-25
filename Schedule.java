@@ -10,7 +10,7 @@ public class Schedule {
     public boolean addEntry(ScheduleEntry entry) {
         for (ScheduleEntry existing : entries) {
             if (existing.conflictsWith(entry)) {
-                System.err.printf("⚠️ Conflict: %s overlaps with %s on %s.%n",
+                System.err.printf(" Conflict: %s overlaps with %s on %s.%n",
                     entry.getUnitName(), existing.getUnitName(), entry.getStartTime().getDayOfWeek());
                 return false;
             }
@@ -61,7 +61,7 @@ public class Schedule {
             DayTime studyEnd = studyStart.addHours(selfStudyH);
             addEntry(new ScheduleEntry(unit, "Self-Study", studyStart, studyEnd));
 
-            System.out.printf("✅ Enrolled %s (Lecture %dh, Practical %dh, Self-Study %dh).%n",
+            System.out.printf(" Enrolled %s (Lecture %dh, Practical %dh, Self-Study %dh).%n",
                     unit, lectureH, practicalH, selfStudyH);
 
             dayIndex = (dayIndex + 1) % days.length; // Chuyển sang ngày kế tiếp
@@ -85,7 +85,7 @@ public class Schedule {
     /** Lưu file CSV */
     public void saveToCSV(String fileName) {
         if (entries.isEmpty()) {
-            System.err.println("⚠️ No entries to save.");
+            System.err.println(" No entries to save.");
             return;
         }
 
@@ -96,19 +96,19 @@ public class Schedule {
                 writer.write(entry.toString());
                 writer.newLine();
             }
-            System.out.println("✅ Schedule saved to " + fileName);
+            System.out.println(" Schedule saved to " + fileName);
         } catch (IOException e) {
-            System.err.println("❌ Error saving file: " + e.getMessage());
+            System.err.println(" Error saving file: " + e.getMessage());
         }
     }
 
     /** Hiển thị lịch học */
     public void displaySchedule() {
         if (entries.isEmpty()) {
-            System.out.println("📭 No schedule entries.");
+            System.out.println(" No schedule entries.");
             return;
         }
-        System.out.println("\n📅 Weekly Schedule:");
+        System.out.println("\n Weekly Schedule:");
         System.out.println("----------------------------------------------------------");
         System.out.printf("%-10s | %-12s | %-9s | %-11s | %-8s | %s%n",
                 "Unit", "Activity", "Day", "Start", "End", "Hours");

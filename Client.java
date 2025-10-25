@@ -7,13 +7,13 @@ public class Client {
 
         System.out.println("===== UNIVERSITY SCHEDULE SYSTEM =====");
 
-        // 1️⃣ Đăng ký môn học
+        // Đăng ký môn học
         schedule.enrollUnits(scanner);
 
-        // 2️⃣ Hiển thị lịch
+        // Hiển thị lịch
         schedule.displaySchedule();
 
-        // 3️⃣ Lưu lịch học
+        // Lưu lịch học
         System.out.print("\nEnter filename to save (e.g., schedule.csv): ");
         String fileName = scanner.nextLine().trim();
         schedule.saveToCSV(fileName);
